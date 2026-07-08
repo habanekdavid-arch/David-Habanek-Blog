@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/lib/LanguageContext";
 import { Article, fmtRating } from "@/lib/content";
@@ -82,6 +83,7 @@ export default function ArticleDetail({ article: a }: { article: Article }) {
 
         <div
           style={{
+            position: "relative",
             height: "clamp(220px,42vw,400px)",
             borderRadius: 22,
             overflow: "hidden",
@@ -93,9 +95,13 @@ export default function ArticleDetail({ article: a }: { article: Article }) {
             border: "1px solid rgba(20,18,15,.06)",
           }}
         >
-          <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#8A857C", background: "rgba(255,255,255,.82)", padding: "4px 9px", borderRadius: 6 }}>
-            {a.img}
-          </span>
+          {a.imageUrl ? (
+            <Image src={a.imageUrl} alt={a.title[lang]} fill sizes="(max-width: 920px) 100vw, 920px" style={{ objectFit: "cover" }} />
+          ) : (
+            <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#8A857C", background: "rgba(255,255,255,.82)", padding: "4px 9px", borderRadius: 6, position: "relative" }}>
+              {a.img}
+            </span>
+          )}
         </div>
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: 44, alignItems: "flex-start" }}>

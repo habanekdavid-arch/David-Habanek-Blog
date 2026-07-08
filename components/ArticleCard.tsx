@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Article, fmtRating } from "@/lib/content";
 import { Lang } from "@/lib/content";
 import { useTilt } from "@/lib/useTilt";
@@ -41,7 +42,11 @@ export default function ArticleCard({ article, lang, readLabel }: { article: Art
             justifyContent: "center",
           }}
         >
-          <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#9B958A" }}>{article.img}</span>
+          {article.imageUrl ? (
+            <Image src={article.imageUrl} alt={article.title[lang]} fill sizes="(max-width: 640px) 100vw, 400px" style={{ objectFit: "cover" }} />
+          ) : (
+            <span style={{ fontFamily: "ui-monospace,Menlo,monospace", fontSize: 11, color: "#9B958A" }}>{article.img}</span>
+          )}
           <span
             style={{
               position: "absolute",

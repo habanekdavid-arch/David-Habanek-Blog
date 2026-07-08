@@ -1,3 +1,5 @@
+export const CONTACT_EMAIL = "habanekdavid@gmail.com";
+
 export type Lang = "sk" | "en";
 
 export interface LocalizedString {
@@ -11,6 +13,7 @@ export interface Article {
   cat: LocalizedString;
   img: string;
   bg: string;
+  imageUrl?: string;
   title: LocalizedString;
   excerpt: LocalizedString;
   meta: LocalizedString;
@@ -24,6 +27,22 @@ export interface Article {
 
 export const stripe = (a: string, b: string) =>
   `repeating-linear-gradient(135deg,${a},${a} 10px,${b},${b} 20px)`;
+
+const STRIPE_PALETTE: [string, string][] = [
+  ["#EDEAE4", "#F6F3ED"],
+  ["#EFE7DE", "#F7F1E9"],
+  ["#E7EEE9", "#F2F6F3"],
+  ["#EAE6EF", "#F3F0F7"],
+  ["#E6ECEF", "#F0F4F6"],
+  ["#F0E6EA", "#F8F0F3"],
+];
+
+export function stripeForSeed(seed: string): string {
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+  const [a, b] = STRIPE_PALETTE[hash % STRIPE_PALETTE.length];
+  return stripe(a, b);
+}
 
 export interface Dict {
   nav: { blog: string; topics: string; about: string; collab: string; cta: string };
@@ -76,6 +95,7 @@ export interface Dict {
   addressLabel: string;
   hoursLabel: string;
   priceLabel: string;
+  noArticles: string;
 }
 
 export const DICT: Record<Lang, Dict> = {
@@ -134,6 +154,7 @@ export const DICT: Record<Lang, Dict> = {
     addressLabel: "Adresa",
     hoursLabel: "Otváracie hodiny",
     priceLabel: "Cenová úroveň",
+    noArticles: "Zatiaľ tu nie sú žiadne články.",
   },
   en: {
     nav: { blog: "Blog", topics: "Topics", about: "About", collab: "Collaborate", cta: "Let's work together" },
@@ -189,6 +210,7 @@ export const DICT: Record<Lang, Dict> = {
     addressLabel: "Address",
     hoursLabel: "Opening hours",
     priceLabel: "Price",
+    noArticles: "No articles here yet.",
   },
 };
 
@@ -204,6 +226,8 @@ export const CATEGORIES: LocalizedString[] = [
 ];
 
 export const HIGHLIGHT_CATEGORY: LocalizedString = { sk: "Dizajn & kód", en: "Design & code" };
+
+export const ALL_CATEGORIES: LocalizedString[] = [HIGHLIGHT_CATEGORY, ...CATEGORIES];
 
 export const ARTICLES: Article[] = [
   {
@@ -385,14 +409,6 @@ export const FEATURED_ORDER = [
   "specialty-cafes",
   "lisbon-street-food",
 ];
-
-export const FEATURED_ARTICLES: Article[] = FEATURED_ORDER.map(
-  (slug) => ARTICLES.find((a) => a.slug === slug)!
-);
-
-export function getArticle(slug: string): Article | undefined {
-  return ARTICLES.find((a) => a.slug === slug);
-}
 
 export interface CollabItem {
   no: string;

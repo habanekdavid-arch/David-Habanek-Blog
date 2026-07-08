@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/lib/LanguageContext";
-import { COLLAB } from "@/lib/content";
+import { COLLAB, CONTACT_EMAIL } from "@/lib/content";
 import CollabCard from "./CollabCard";
 
 export default function CollabSection() {
@@ -16,7 +16,7 @@ export default function CollabSection() {
     };
     const subject = encodeURIComponent((lang === "sk" ? "Spolupráca — " : "Collaboration — ") + (f.name.value || ""));
     const body = encodeURIComponent(`${f.message.value}\n\n— ${f.name.value} (${f.email.value})`);
-    window.location.href = `mailto:ahoj@davidhabanek.sk?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
   }
 
   return (
@@ -67,7 +67,7 @@ export default function CollabSection() {
           <h3 style={{ fontFamily: "'Newsreader',serif", fontWeight: 500, fontSize: 32, color: "#fff", margin: "0 0 10px" }}>{t.ctTitle}</h3>
           <p style={{ fontSize: 15.5, color: "rgba(255,255,255,.85)", margin: "0 0 20px", lineHeight: 1.55 }}>{t.ctSub}</p>
           <a
-            href="mailto:ahoj@davidhabanek.sk"
+            href={`mailto:${CONTACT_EMAIL}`}
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -80,7 +80,7 @@ export default function CollabSection() {
               paddingBottom: 2,
             }}
           >
-            ahoj@davidhabanek.sk
+            {CONTACT_EMAIL}
           </a>
         </div>
         <form

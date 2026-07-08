@@ -1,10 +1,10 @@
 "use client";
 
 import { useLanguage } from "@/lib/LanguageContext";
-import { FEATURED_ARTICLES } from "@/lib/content";
+import { Article } from "@/lib/content";
 import ArticleCard from "./ArticleCard";
 
-export default function ArticleGrid() {
+export default function ArticleGrid({ articles }: { articles: Article[] }) {
   const { lang, t } = useLanguage();
 
   return (
@@ -30,11 +30,15 @@ export default function ArticleGrid() {
         </a>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(322px,1fr))", gap: 26 }}>
-        {FEATURED_ARTICLES.map((a) => (
-          <ArticleCard key={a.slug} article={a} lang={lang} readLabel={t.read} />
-        ))}
-      </div>
+      {articles.length === 0 ? (
+        <p style={{ fontSize: 15, color: "#9B958A" }}>{t.noArticles}</p>
+      ) : (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(322px,1fr))", gap: 26 }}>
+          {articles.map((a) => (
+            <ArticleCard key={a.slug} article={a} lang={lang} readLabel={t.read} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

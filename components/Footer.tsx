@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/lib/LanguageContext";
+import { CONTACT_EMAIL } from "@/lib/content";
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -35,7 +36,7 @@ export default function Footer() {
           <Link href="/#collab" style={{ textDecoration: "none", color: "#6E6960", fontSize: 14 }}>
             {t.nav.collab}
           </Link>
-          <a href="mailto:ahoj@davidhabanek.sk" style={{ textDecoration: "none", color: "#6E6960", fontSize: 14 }}>
+          <a href={`mailto:${CONTACT_EMAIL}`} style={{ textDecoration: "none", color: "#6E6960", fontSize: 14 }}>
             Email
           </a>
           <Link href="/#top" style={{ textDecoration: "none", color: "#6E6960", fontSize: 14 }}>

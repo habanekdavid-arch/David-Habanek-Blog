@@ -1,11 +1,11 @@
 "use client";
 
 import { useLanguage } from "@/lib/LanguageContext";
-import { CATEGORIES, HIGHLIGHT_CATEGORY } from "@/lib/content";
+import { ALL_CATEGORIES } from "@/lib/content";
 
 export default function TopicsBar() {
   const { lang } = useLanguage();
-  const cats = [HIGHLIGHT_CATEGORY, ...CATEGORIES].map((c, i) => ({
+  const cats = ALL_CATEGORIES.map((c, i) => ({
     label: c[lang],
     bg: i === 0 ? "#1F8A5B" : "#fff",
     color: i === 0 ? "#fff" : "#16140F",
