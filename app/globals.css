@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #fbfaf8;
+  color: #16140f;
+  font-family: "Schibsted Grotesk", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: #1f8a5b;
+  color: #fff;
+}
+
+@keyframes floatA {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes floatB {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(13px);
+  }
+}
+
+@keyframes floatC {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-11px);
+  }
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pinPulse {
+  0% {
+    transform: translateX(-50%) scale(0.5);
+    opacity: 0.55;
+  }
+  70% {
+    transform: translateX(-50%) scale(1.9);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes detailIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.pill-btn.green {
+  background: #1f8a5b;
+  color: #fff;
+}
+.pill-btn.green:hover {
+  background: #176b47;
+}
+
+.pill-btn.dark {
+  background: #16140f;
+  color: #fff;
+}
+.pill-btn.dark:hover {
+  background: #1f8a5b;
+}
+
+.pill-btn.dark-strong {
+  background: #16140f;
+  color: #fff;
+}
+.pill-btn.dark-strong:hover {
+  background: #000;
+}
+
+.pill-btn.outline {
+  background: transparent;
+  color: #16140f;
+  border: 1px solid rgba(20, 18, 15, 0.2);
+}
+.pill-btn.outline:hover {
+  border-color: #16140f;
+}
+
+.pill-btn.ghost {
+  background: #fff;
+  color: #16140f;
+  border: 1px solid rgba(20, 18, 15, 0.16);
+}
+.pill-btn.ghost:hover {
+  border-color: #16140f;
+}
