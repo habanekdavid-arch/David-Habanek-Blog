@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#FBFAF8;color:#16140F;font-family:'Schibsted Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:#1F8A5B;color:#fff}
+  @keyframes floatA{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+  @keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(13px)}}
+  @keyframes floatC{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+  @keyframes riseIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes pinPulse{0%{transform:translateX(-50%) scale(.5);opacity:.55}70%{transform:translateX(-50%) scale(1.9);opacity:0}100%{opacity:0}}
+  @keyframes detailIn{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1F8A5B"/><text x="50" y="66" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="44" fill="#ffffff">DH</text></svg></template>
+
+<div style="max-width:100%;overflow-x:hidden">
+
+<!-- NAV -->
+<header style="position:sticky;top:0;z-index:50;background:rgba(251,250,248,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(20,18,15,.08)">
+  <nav style="max-width:1180px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="#top" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit">
+      <span style="font-family:'Great Vibes',cursive;font-weight:400;font-size:30px;line-height:1;color:#1F8A5B;letter-spacing:.01em">David Habánek</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:30px">
+      <div style="display:flex;gap:26px" data-navlinks>
+        <a href="#latest" style="text-decoration:none;color:#16140F;font-size:14.5px;font-weight:500;opacity:.78">{{ t.nav.blog }}</a>
+        <a href="#topics" style="text-decoration:none;color:#16140F;font-size:14.5px;font-weight:500;opacity:.78">{{ t.nav.topics }}</a>
+        <a href="#about" style="text-decoration:none;color:#16140F;font-size:14.5px;font-weight:500;opacity:.78">{{ t.nav.about }}</a>
+        <a href="#collab" style="text-decoration:none;color:#16140F;font-size:14.5px;font-weight:500;opacity:.78">{{ t.nav.collab }}</a>
+      </div>
+      <div style="display:flex;align-items:center;border:1px solid rgba(20,18,15,.14);border-radius:999px;overflow:hidden">
+        <button onClick="{{ setSk }}" style="border:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:12.5px;padding:6px 11px;background:{{ skBg }};color:{{ skColor }}">SK</button>
+        <button onClick="{{ setEn }}" style="border:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:12.5px;padding:6px 11px;background:{{ enBg }};color:{{ enColor }}">EN</button>
+      </div>
+      <a href="#collab" style="text-decoration:none;background:#16140F;color:#fff;font-size:14px;font-weight:600;padding:9px 17px;border-radius:999px" style-hover="background:#1F8A5B">{{ t.nav.cta }}</a>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section id="top" style="max-width:1180px;margin:0 auto;padding:64px 28px 40px;display:flex;flex-wrap:wrap;gap:48px;align-items:center;justify-content:space-between">
+  <div style="flex:1 1 420px;max-width:560px;animation:riseIn .7s ease both">
+    <div style="display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#1F8A5B;margin-bottom:22px">
+      <span style="width:7px;height:7px;border-radius:50%;background:#1F8A5B;display:inline-block"></span>{{ t.eyebrow }}
+    </div>
+    <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(40px,5.4vw,68px);line-height:1.02;letter-spacing:-.02em;margin:0 0 24px">{{ t.h1a }} <em style="font-style:italic;color:#1F8A5B">{{ t.h1em }}</em> {{ t.h1b }}</h1>
+    <p style="font-size:18px;line-height:1.6;color:#54504799;color:#56514A;max-width:480px;margin:0 0 32px">{{ t.heroText }}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:13px">
+      <a href="#latest" style="text-decoration:none;background:#1F8A5B;color:#fff;font-size:15px;font-weight:600;padding:14px 26px;border-radius:999px" style-hover="background:#176B47">{{ t.ctaRead }} →</a>
+      <a href="#collab" style="text-decoration:none;background:transparent;color:#16140F;border:1px solid rgba(20,18,15,.2);font-size:15px;font-weight:600;padding:14px 26px;border-radius:999px" style-hover="border-color:#16140F">{{ t.ctaCollab }}</a>
+    </div>
+    <div style="display:flex;gap:34px;margin-top:42px">
+      <div><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:500">40+</div><div style="font-size:13px;color:#7A746A;margin-top:2px">{{ t.stat1 }}</div></div>
+      <div><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:500">9</div><div style="font-size:13px;color:#7A746A;margin-top:2px">{{ t.stat2 }}</div></div>
+      <div><div style="font-family:'Newsreader',serif;font-size:30px;font-weight:500">22</div><div style="font-size:13px;color:#7A746A;margin-top:2px">{{ t.stat3 }}</div></div>
+    </div>
+  </div>
+
+  <!-- FLOATING 3D CLUSTER -->
+  <sc-if value="{{ showCluster }}" hint-placeholder-val="{{ true }}">
+  <div style="flex:0 0 auto;width:472px;height:540px;position:relative;perspective:1400px;animation:riseIn .9s ease both">
+    <!-- accent panel -->
+    <div style="position:absolute;left:46px;top:36px;width:360px;height:452px;background:#1F8A5B;border-radius:30px;z-index:1;box-shadow:0 40px 80px -30px rgba(31,138,91,.55);overflow:hidden">
+      <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 20% 0%,rgba(255,255,255,.16),transparent 60%)"></div>
+      <div style="position:absolute;left:28px;top:28px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.82)">{{ t.panelKicker }}</div>
+      <div style="position:absolute;left:26px;right:24px;bottom:78px;font-family:'Great Vibes',cursive;font-weight:400;font-size:62px;line-height:.95;color:#fff;letter-spacing:0">David<br>Habánek</div>
+      <div style="position:absolute;left:28px;bottom:34px;font-size:14px;color:rgba(255,255,255,.9);max-width:230px;line-height:1.4">{{ t.panelSub }}</div>
+    </div>
+
+    <!-- card A: small dish -->
+    <div style="position:absolute;left:-6px;top:96px;width:206px;z-index:3;animation:floatA 6.5s ease-in-out infinite">
+      <div data-tilt style="transform-style:preserve-3d;will-change:transform;background:#fff;border-radius:18px;padding:12px;box-shadow:0 24px 50px -18px rgba(20,18,15,.30);border:1px solid rgba(20,18,15,.05)">
+        <div data-tilt-layer style="height:118px;border-radius:11px;background:repeating-linear-gradient(135deg,#EDEAE4,#EDEAE4 9px,#F6F3ED 9px,#F6F3ED 18px);display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#9B958A">foto · ramen</div>
+        <div style="font-size:11px;font-weight:600;color:#1F8A5B;margin:11px 4px 4px;text-transform:uppercase;letter-spacing:.04em">{{ t.fcatA }}</div>
+        <div style="font-family:'Newsreader',serif;font-size:16px;line-height:1.15;margin:0 4px 6px">{{ t.ftitA }}</div>
+      </div>
+    </div>
+
+    <!-- card B: wide media -->
+    <div style="position:absolute;right:-34px;top:54px;width:300px;z-index:4;animation:floatB 7.4s ease-in-out infinite">
+      <div data-tilt style="transform-style:preserve-3d;will-change:transform;background:#fff;border-radius:18px;padding:12px;box-shadow:0 30px 60px -20px rgba(20,18,15,.34);border:1px solid rgba(20,18,15,.05)">
+        <div data-tilt-layer style="height:150px;border-radius:11px;background:repeating-linear-gradient(135deg,#E7EEE9,#E7EEE9 9px,#F2F6F3 9px,#F2F6F3 18px);display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8FA89A">foto · kaviareň</div>
+        <div style="font-size:11px;font-weight:600;color:#1F8A5B;margin:11px 4px 4px;text-transform:uppercase;letter-spacing:.04em">{{ t.fcatB }}</div>
+        <div style="font-family:'Newsreader',serif;font-size:18px;line-height:1.15;margin:0 4px 6px">{{ t.ftitB }}</div>
+      </div>
+    </div>
+
+    <!-- card C: bottom video -->
+    <div style="position:absolute;left:84px;bottom:-12px;width:288px;z-index:5;animation:floatC 6.9s ease-in-out infinite">
+      <div data-tilt style="transform-style:preserve-3d;will-change:transform;background:#fff;border-radius:18px;padding:12px;box-shadow:0 34px 64px -20px rgba(20,18,15,.38);border:1px solid rgba(20,18,15,.05)">
+        <div data-tilt-layer style="position:relative;height:140px;border-radius:11px;background:repeating-linear-gradient(135deg,#E9E6E0,#E9E6E0 9px,#F4F1EB 9px,#F4F1EB 18px);display:flex;align-items:center;justify-content:center">
+          <span style="position:absolute;left:12px;bottom:10px;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#9B958A">video · 3D tlač</span>
+          <span style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(0,0,0,.18)"><span style="display:block;border-left:13px solid #1F8A5B;border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px"></span></span>
+        </div>
+        <div style="font-size:11px;font-weight:600;color:#1F8A5B;margin:11px 4px 4px;text-transform:uppercase;letter-spacing:.04em">{{ t.fcatC }}</div>
+        <div style="font-family:'Newsreader',serif;font-size:17px;line-height:1.15;margin:0 4px 6px">{{ t.ftitC }}</div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+</section>
+
+<!-- TOPICS / CATEGORIES -->
+<section id="topics" style="max-width:1180px;margin:0 auto;padding:46px 28px 12px">
+  <div style="display:flex;flex-wrap:wrap;gap:10px">
+    <sc-for list="{{ cats }}" as="c" hint-placeholder-count="8">
+      <span style="font-size:13.5px;font-weight:600;padding:9px 16px;border-radius:999px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};cursor:default">{{ c.label }}</span>
+    </sc-for>
+  </div>
+</section>
+
+<!-- LATEST ARTICLES -->
+<section id="latest" style="max-width:1180px;margin:0 auto;padding:40px 28px 20px">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:30px">
+    <div>
+      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(30px,3.6vw,44px);letter-spacing:-.02em;margin:0">{{ t.latestTitle }}</h2>
+      <p style="font-size:16px;color:#7A746A;margin:8px 0 0">{{ t.latestSub }}</p>
+    </div>
+    <a href="#collab" style="text-decoration:none;font-size:14.5px;font-weight:600;color:#1F8A5B">{{ t.viewAll }} →</a>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(322px,1fr));gap:26px">
+    <sc-for list="{{ featured }}" as="a" hint-placeholder-count="6">
+      <article style="perspective:1100px">
+        <div data-tilt onClick="{{ a.open }}" style="transform-style:preserve-3d;will-change:transform;background:#fff;border:1px solid rgba(20,18,15,.07);border-radius:20px;padding:14px;box-shadow:0 12px 30px -18px rgba(20,18,15,.18);cursor:pointer">
+          <div data-tilt-layer style="position:relative;height:194px;border-radius:13px;overflow:hidden;background:{{ a.bg }};display:flex;align-items:center;justify-content:center">
+            <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#9B958A">{{ a.img }}</span>
+            <span style="position:absolute;left:12px;top:12px;font-size:11px;font-weight:700;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.92);color:#16140F;letter-spacing:.02em">{{ a.cat }}</span>
+          </div>
+          <h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:23px;line-height:1.18;letter-spacing:-.01em;margin:16px 6px 8px">{{ a.title }}</h3>
+          <p style="font-size:14.5px;line-height:1.55;color:#6E6960;margin:0 6px 12px">{{ a.ex }}</p>
+          <div style="display:flex;align-items:center;gap:8px;margin:0 6px 12px">
+            <div style="display:flex;gap:2px">
+              <sc-for list="{{ a.stars }}" as="s" hint-placeholder-count="5">
+                <span style="font-size:15px;line-height:1;color:{{ s.color }}">★</span>
+              </sc-for>
+            </div>
+            <span style="font-size:12.5px;font-weight:600;color:#7A746A">{{ a.ratingLabel }}</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin:0 6px 4px">
+            <span style="font-size:12.5px;color:#9B958A;font-weight:500">{{ a.meta }}</span>
+            <span style="font-size:13px;font-weight:600;color:#1F8A5B">{{ t.read }} →</span>
+          </div>
+        </div>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background:#16140F;color:#FBFAF8;margin-top:64px">
+  <div style="max-width:1180px;margin:0 auto;padding:80px 28px;display:flex;flex-wrap:wrap;gap:56px;align-items:center">
+    <div style="flex:0 0 auto;width:300px;perspective:1100px;margin:0 auto">
+      <div data-tilt style="transform-style:preserve-3d;will-change:transform;border-radius:22px;overflow:hidden;background:repeating-linear-gradient(135deg,#23211B,#23211B 10px,#2B281F 10px,#2B281F 20px);height:360px;display:flex;align-items:flex-end;justify-content:center;border:1px solid rgba(255,255,255,.08)">
+        <span data-tilt-layer style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#7E776B;padding-bottom:18px">foto · David</span>
+      </div>
+    </div>
+    <div style="flex:1 1 420px;max-width:560px">
+      <div style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#5FC795;margin-bottom:18px">{{ t.aboutKicker }}</div>
+      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(30px,3.8vw,46px);line-height:1.1;letter-spacing:-.02em;margin:0 0 22px">{{ t.aboutTitle }}</h2>
+      <p style="font-size:17px;line-height:1.65;color:rgba(251,250,248,.78);margin:0 0 18px">{{ t.aboutP1 }}</p>
+      <p style="font-size:17px;line-height:1.65;color:rgba(251,250,248,.78);margin:0 0 26px">{{ t.aboutP2 }}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <sc-for list="{{ roles }}" as="r" hint-placeholder-count="4">
+          <span style="font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.16);color:rgba(251,250,248,.9)">{{ r }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLAB / MONETIZATION -->
+<sc-if value="{{ showCollab }}" hint-placeholder-val="{{ true }}">
+<section id="collab" style="max-width:1180px;margin:0 auto;padding:80px 28px 30px">
+  <div style="max-width:640px;margin-bottom:42px">
+    <div style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#1F8A5B;margin-bottom:16px">{{ t.collabKicker }}</div>
+    <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(30px,3.8vw,46px);line-height:1.08;letter-spacing:-.02em;margin:0 0 16px">{{ t.collabTitle }}</h2>
+    <p style="font-size:17px;line-height:1.6;color:#6E6960;margin:0">{{ t.collabSub }}</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px">
+    <sc-for list="{{ collab }}" as="m" hint-placeholder-count="3">
+      <div style="perspective:1100px">
+        <div data-tilt style="transform-style:preserve-3d;will-change:transform;background:#fff;border:1px solid rgba(20,18,15,.08);border-radius:20px;padding:30px 26px;height:100%;box-shadow:0 12px 30px -20px rgba(20,18,15,.2)">
+          <div data-tilt-layer style="width:46px;height:46px;border-radius:13px;background:#EDF4EF;color:#1F8A5B;display:flex;align-items:center;justify-content:center;font-family:'Newsreader',serif;font-size:22px;margin-bottom:20px">{{ m.no }}</div>
+          <h3 style="font-size:19px;font-weight:700;letter-spacing:-.01em;margin:0 0 10px">{{ m.title }}</h3>
+          <p style="font-size:14.5px;line-height:1.55;color:#6E6960;margin:0">{{ m.text }}</p>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <!-- contact / collaboration -->
+  <div id="contact" style="margin-top:30px;background:#1F8A5B;border-radius:26px;padding:48px 44px;display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;justify-content:space-between;overflow:hidden;position:relative">
+    <div style="position:absolute;right:-40px;top:-40px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.08)"></div>
+    <div style="flex:1 1 300px;position:relative;max-width:360px">
+      <h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:32px;color:#fff;margin:0 0 10px">{{ t.ctTitle }}</h3>
+      <p style="font-size:15.5px;color:rgba(255,255,255,.85);margin:0 0 20px;line-height:1.55">{{ t.ctSub }}</p>
+      <a href="mailto:ahoj@davidhabanek.sk" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#fff;font-weight:600;font-size:15px;border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:2px">ahoj@davidhabanek.sk</a>
+    </div>
+    <form onSubmit="{{ onContact }}" style="flex:1 1 340px;position:relative;display:flex;flex-direction:column;gap:12px;max-width:440px">
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <input name="name" required placeholder="{{ t.ctName }}" style="flex:1 1 140px;border:none;border-radius:14px;padding:14px 18px;font-family:inherit;font-size:15px;outline:none" />
+        <input name="email" type="email" required placeholder="{{ t.ctEmail }}" style="flex:1 1 140px;border:none;border-radius:14px;padding:14px 18px;font-family:inherit;font-size:15px;outline:none" />
+      </div>
+      <textarea name="message" required rows="3" placeholder="{{ t.ctMsg }}" style="border:none;border-radius:14px;padding:14px 18px;font-family:inherit;font-size:15px;outline:none;resize:vertical"></textarea>
+      <button type="submit" style="border:none;cursor:pointer;border-radius:999px;padding:14px 24px;font-family:inherit;font-weight:600;font-size:15px;background:#16140F;color:#fff;align-self:flex-start" style-hover="background:#000">{{ t.ctBtn }}</button>
+    </form>
+  </div>
+</section>
+</sc-if>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid rgba(20,18,15,.08);margin-top:50px">
+  <div style="max-width:1180px;margin:0 auto;padding:46px 28px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:11px">
+      <span style="font-family:'Great Vibes',cursive;font-weight:400;font-size:28px;line-height:1;color:#1F8A5B">David Habánek</span>
+    </div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap">
+      <a href="#latest" style="text-decoration:none;color:#6E6960;font-size:14px">{{ t.nav.blog }}</a>
+      <a href="#about" style="text-decoration:none;color:#6E6960;font-size:14px">{{ t.nav.about }}</a>
+      <a href="#collab" style="text-decoration:none;color:#6E6960;font-size:14px">{{ t.nav.collab }}</a>
+      <a href="mailto:ahoj@davidhabanek.sk" style="text-decoration:none;color:#6E6960;font-size:14px">Email</a>
+      <a href="#top" style="text-decoration:none;color:#6E6960;font-size:14px">Instagram</a>
+    </div>
+    <div style="font-size:13px;color:#9B958A">© 2026 David Habánek · {{ t.rights }}</div>
+  </div>
+</footer>
+
+<!-- ARTICLE DETAIL OVERLAY -->
+<sc-if value="{{ showDetail }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:200;background:#FBFAF8;overflow-y:auto;animation:detailIn .28s ease both">
+  <div style="position:sticky;top:0;z-index:5;background:rgba(251,250,248,.86);backdrop-filter:blur(14px);border-bottom:1px solid rgba(20,18,15,.08)">
+    <div style="max-width:920px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <button onClick="{{ closeDetail }}" style="display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(20,18,15,.16);background:#fff;cursor:pointer;font-family:inherit;font-weight:600;font-size:14px;color:#16140F;padding:9px 16px;border-radius:999px" style-hover="border-color:#16140F">← {{ t.backToBlog }}</button>
+      <span style="font-family:'Great Vibes',cursive;font-size:27px;color:#1F8A5B;line-height:1">David Habánek</span>
+    </div>
+  </div>
+
+  <article style="max-width:920px;margin:0 auto;padding:44px 28px 90px">
+    <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:18px">
+      <span style="font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:999px;background:#EDF4EF;color:#1F8A5B;letter-spacing:.02em">{{ detail.cat }}</span>
+      <span style="font-size:13px;color:#9B958A;font-weight:500">{{ detail.meta }}</span>
+    </div>
+    <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:clamp(32px,4.6vw,52px);line-height:1.08;letter-spacing:-.02em;margin:0 0 18px">{{ detail.title }}</h1>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:30px;flex-wrap:wrap">
+      <div style="display:flex;gap:3px">
+        <sc-for list="{{ detail.stars }}" as="s" hint-placeholder-count="5"><span style="font-size:19px;line-height:1;color:{{ s.color }}">★</span></sc-for>
+      </div>
+      <span style="font-size:14px;font-weight:700;color:#16140F">{{ detail.ratingLabel }}</span>
+      <sc-if value="{{ detail.place }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;color:#7A746A">· {{ detail.city }}</span></sc-if>
+    </div>
+
+    <div style="height:clamp(220px,42vw,400px);border-radius:22px;overflow:hidden;background:{{ detail.bg }};display:flex;align-items:flex-end;padding:16px;margin-bottom:36px;border:1px solid rgba(20,18,15,.06)">
+      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#8A857C;background:rgba(255,255,255,.82);padding:4px 9px;border-radius:6px">{{ detail.img }}</span>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:44px;align-items:flex-start">
+      <div style="flex:1 1 400px;min-width:0">
+        <p style="font-family:'Newsreader',serif;font-size:21px;line-height:1.5;color:#33302A;margin:0 0 24px">{{ detail.ex }}</p>
+        <sc-for list="{{ detail.body }}" as="p" hint-placeholder-count="3">
+          <p style="font-size:16.5px;line-height:1.72;color:#413D36;margin:0 0 20px">{{ p }}</p>
+        </sc-for>
+      </div>
+      <aside style="flex:1 1 230px;max-width:300px;position:sticky;top:88px">
+        <div style="background:#fff;border:1px solid rgba(20,18,15,.08);border-radius:18px;padding:22px;box-shadow:0 12px 30px -22px rgba(20,18,15,.2)">
+          <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9B958A;margin-bottom:16px">{{ t.infoTitle }}</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <sc-for list="{{ detail.facts }}" as="f" hint-placeholder-count="3">
+              <div>
+                <div style="font-size:11.5px;color:#9B958A;font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:3px">{{ f.label }}</div>
+                <div style="font-size:15px;color:#16140F;font-weight:500;line-height:1.35">{{ f.value }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <sc-if value="{{ detail.place }}" hint-placeholder-val="{{ false }}">
+    <div style="margin-top:46px">
+      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:28px;letter-spacing:-.01em;margin:0 0 16px">{{ t.locationTitle }}</h2>
+      <div style="position:relative;height:340px;border-radius:22px;overflow:hidden;border:1px solid rgba(20,18,15,.08);background:repeating-linear-gradient(0deg, transparent 0 48px, rgba(255,255,255,.92) 48px 54px), repeating-linear-gradient(90deg, transparent 0 66px, rgba(255,255,255,.92) 66px 72px), #E7ECE6">
+        <div style="position:absolute;left:8%;top:15%;width:26%;height:34%;border-radius:16px;background:#D6E7CE"></div>
+        <div style="position:absolute;right:-4%;bottom:-6%;width:44%;height:42%;transform:rotate(-8deg);background:#CFE0E9;border-radius:22px"></div>
+        <div style="position:absolute;left:-10%;top:62%;width:130%;height:15px;background:#fff;transform:rotate(-6deg);box-shadow:0 0 0 1px rgba(20,18,15,.04)"></div>
+        <div style="position:absolute;left:50%;top:44%;transform:translate(-50%,-100%)">
+          <div style="position:absolute;left:50%;bottom:-4px;width:46px;height:46px;border-radius:50%;background:rgba(31,138,91,.35);animation:pinPulse 2.4s ease-out infinite"></div>
+          <div style="position:relative;width:34px;height:34px;border-radius:50% 50% 50% 0;background:#1F8A5B;transform:rotate(-45deg);box-shadow:0 10px 20px -5px rgba(31,138,91,.6)">
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:50%;background:#fff"></div>
+          </div>
+        </div>
+        <div style="position:absolute;left:16px;right:16px;bottom:16px;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);border-radius:14px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;box-shadow:0 12px 30px -14px rgba(20,18,15,.35)">
+          <div>
+            <div style="font-size:15px;font-weight:700;color:#16140F">{{ detail.title }}</div>
+            <div style="font-size:13.5px;color:#6E6960;margin-top:2px">{{ detail.address }}</div>
+          </div>
+          <a href="{{ detail.mapsUrl }}" target="_blank" rel="noopener" style="text-decoration:none;background:#1F8A5B;color:#fff;font-size:13.5px;font-weight:600;padding:10px 16px;border-radius:999px;white-space:nowrap" style-hover="background:#176B47">{{ t.openMaps }} →</a>
+        </div>
+        <span style="position:absolute;left:14px;top:14px;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#7C8778;background:rgba(255,255,255,.78);padding:3px 8px;border-radius:6px">{{ t.mapPlaceholder }}</span>
+      </div>
+    </div>
+    </sc-if>
+
+    <div style="margin-top:52px;padding-top:28px;border-top:1px solid rgba(20,18,15,.1);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+      <button onClick="{{ closeDetail }}" style="border:1px solid rgba(20,18,15,.16);background:#fff;cursor:pointer;font-family:inherit;font-weight:600;font-size:14px;color:#16140F;padding:11px 20px;border-radius:999px" style-hover="border-color:#16140F">← {{ t.backToBlog }}</button>
+      <a href="#contact" onClick="{{ closeDetail }}" style="text-decoration:none;background:#16140F;color:#fff;font-size:14px;font-weight:600;padding:12px 22px;border-radius:999px" style-hover="background:#1F8A5B">{{ t.collabCta }} →</a>
+    </div>
+  </article>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;tiltStrength&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:16,&quot;min&quot;:0,&quot;max&quot;:26,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Interakcia&quot;},&quot;showFloatingCards&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Layout&quot;},&quot;showCollab&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Layout&quot;}}">
+class Component extends DCLogic {
+  state = { lang: 'sk', selected: null };
+
+  componentDidMount() {
+    this._attach();
+    this._esc = (e) => { if (e.key === 'Escape' && this.state.selected != null) this.setState({ selected: null }); };
+    window.addEventListener('keydown', this._esc);
+  }
+  componentDidUpdate() {
+    this._attach();
+    document.body.style.overflow = this.state.selected != null ? 'hidden' : '';
+  }
+  componentWillUnmount() {
+    if (this._esc) window.removeEventListener('keydown', this._esc);
+    document.body.style.overflow = '';
+  }
+  openArticle(i) { this.setState({ selected: i }); }
+  closeArticle() { this.setState({ selected: null }); }
+
+  _attach() {
+    const strength = this.props.tiltStrength ?? 16;
+    requestAnimationFrame(() => {
+      document.querySelectorAll('[data-tilt]').forEach((el) => {
+        if (el.__tiltBound) return;
+        el.__tiltBound = true;
+        const layer = el.querySelector('[data-tilt-layer]');
+        const move = (e) => {
+          const r = el.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width - 0.5;
+          const py = (e.clientY - r.top) / r.height - 0.5;
+          el.style.transition = 'transform .08s linear';
+          el.style.transform = `rotateY(${px * strength}deg) rotateX(${-py * strength}deg) translateZ(0)`;
+          if (layer) { layer.style.transition = 'transform .08s linear'; layer.style.transform = `translate3d(${px * -20}px, ${py * -20}px, 46px)`; }
+        };
+        const leave = () => {
+          el.style.transition = 'transform .55s cubic-bezier(.2,.8,.2,1)';
+          el.style.transform = 'rotateX(0) rotateY(0)';
+          if (layer) { layer.style.transition = 'transform .55s cubic-bezier(.2,.8,.2,1)'; layer.style.transform = 'translate3d(0,0,0)'; }
+        };
+        el.addEventListener('pointermove', move);
+        el.addEventListener('pointerleave', leave);
+      });
+    });
+  }
+
+  renderVals() {
+    const L = this.state.lang;
+    const active = '#16140F', activeC = '#fff', idle = 'transparent', idleC = '#16140F';
+
+    const DICT = {
+      sk: {
+        nav: { blog: 'Blog', topics: 'Témy', about: 'O mne', collab: 'Spolupráca', cta: 'Spolupracujme' },
+        eyebrow: 'Blog · jedlo · dizajn · kód',
+        h1a: 'Navrhujem, programujem a', h1em: 'píšem', h1b: 'o tom, čo ma baví.',
+        heroText: 'Som David Habánek — 22-ročný dizajnér a programátor zo Slovenska. Medzi projektmi objavujem reštaurácie, kaviarne a recepty a píšem o všetkom, čo ma cestou nadchne.',
+        ctaRead: 'Čítať blog', ctaCollab: 'Spolupracujme',
+        stat1: 'recenzií', stat2: 'tém', stat3: 'rokov',
+        panelKicker: 'Blog & recenzie', panelSub: 'Úprimné recenzie podnikov, recepty a postrehy z ciest.',
+        fcatA: 'Reštaurácie', ftitA: 'Najlepší ramen v meste',
+        fcatB: 'Kaviarne', ftitB: 'Špeciálky, ktoré stoja za to',
+        fcatC: 'Dizajn', ftitC: 'Redesign menu, ktoré ľudia naozaj čítajú',
+        latestTitle: 'Najnovšie články', latestSub: 'Recenzie, recepty a postrehy z ciest.',
+        viewAll: 'Všetky články', read: 'Čítať',
+        aboutKicker: 'O mne', aboutTitle: 'Skúšam veľa vecí naraz — a píšem o tom.',
+        aboutP1: 'Navrhujem rozhrania, programujem a tlačím na 3D tlačiarni. Najradšej však objavujem nové podniky a kuchyne, ktoré sa oplatí zažiť.',
+        aboutP2: 'Tento blog je miesto, kde sa to všetko spája — chuť do jedla, cesty a radosť z dobrého dizajnu.',
+        roles: ['Dizajnér', 'Programátor', '3D tlačiar', 'Cestovateľ', 'Foodie'],
+        collabKicker: 'Spolupráca & monetizácia', collabTitle: 'Máš podnik alebo značku? Spojme sa.',
+        collabSub: 'Pomáham reštauráciám, kaviarňam a značkám dostať sa k publiku, ktoré naozaj rieši jedlo a zážitky. Tu je, ako spolu môžeme pracovať.',
+        ctTitle: 'Máš návrh na spoluprácu?', ctSub: 'Napíš mi pár riadkov o podniku alebo projekte a ozvem sa ti späť. Najrýchlejšie ma chytíš na maile.',
+        ctName: 'Meno / podnik', ctEmail: 'Email', ctMsg: 'O čo ide?', ctBtn: 'Odoslať správu',
+        backToBlog: 'Späť na blog', infoTitle: 'Informácie', locationTitle: 'Kde to nájdeš',
+        openMaps: 'Otvoriť v mapách', mapPlaceholder: 'mapa · placeholder', collabCta: 'Chcem spoluprácu',
+        rights: 'Všetky práva vyhradené'
+      },
+      en: {
+        nav: { blog: 'Blog', topics: 'Topics', about: 'About', collab: 'Collaborate', cta: "Let's work together" },
+        eyebrow: 'Blog · food · design · code',
+        h1a: 'I design, code and', h1em: 'write', h1b: 'about what I love.',
+        heroText: "I'm David Habánek — a 22-year-old designer and developer from Slovakia. Between projects I explore restaurants, cafés and recipes, and write about everything that excites me along the way.",
+        ctaRead: 'Read the blog', ctaCollab: "Let's collaborate",
+        stat1: 'reviews', stat2: 'topics', stat3: 'years old',
+        panelKicker: 'Blog & reviews', panelSub: 'Honest reviews of places, recipes and notes from the road.',
+        fcatA: 'Restaurants', ftitA: 'The best ramen in town',
+        fcatB: 'Cafés', ftitB: 'Specialty spots worth the trip',
+        fcatC: 'Design', ftitC: 'Redesigning a menu people actually read',
+        latestTitle: 'Latest articles', latestSub: 'Reviews, recipes and notes from the road.',
+        viewAll: 'All articles', read: 'Read',
+        aboutKicker: 'About me', aboutTitle: 'I try a lot of things at once — and write about it.',
+        aboutP1: 'I design interfaces, write code and print on my 3D printer. But what I love most is discovering new places and kitchens worth experiencing.',
+        aboutP2: "This blog is where it all comes together — a love of food, travel and the joy of good design.",
+        roles: ['Designer', 'Developer', '3D printing', 'Traveler', 'Foodie'],
+        collabKicker: 'Collaborate & monetize', collabTitle: 'Got a place or a brand? Let’s connect.',
+        collabSub: 'I help restaurants, cafés and brands reach an audience that genuinely cares about food and experiences. Here’s how we can work together.',
+        ctTitle: 'Have a collaboration in mind?', ctSub: 'Drop me a few lines about your place or project and I’ll get back to you. Email is the fastest way to reach me.',
+        ctName: 'Name / business', ctEmail: 'Email', ctMsg: 'What’s it about?', ctBtn: 'Send message',
+        backToBlog: 'Back to blog', infoTitle: 'Details', locationTitle: 'Where to find it',
+        openMaps: 'Open in Maps', mapPlaceholder: 'map · placeholder', collabCta: 'Work with me',
+        rights: 'All rights reserved'
+      }
+    };
+    const t = DICT[L];
+
+    const CATS = [
+      { sk: 'Reštaurácie', en: 'Restaurants' }, { sk: 'Jedlá & recepty', en: 'Food & recipes' },
+      { sk: 'Kaviarne', en: 'Cafés' }, { sk: 'Cestovanie', en: 'Travel' },
+      { sk: 'UI/UX', en: 'UI/UX' }, { sk: 'Marketing', en: 'Marketing' },
+      { sk: 'Technológie', en: 'Tech' }, { sk: 'Svet', en: 'World' }
+    ];
+    const HL = { sk: 'Dizajn & kód', en: 'Design & code' };
+    const cats = [HL, ...CATS].map((c, i) => ({
+      label: c[L],
+      bg: i === 0 ? '#1F8A5B' : '#fff',
+      color: i === 0 ? '#fff' : '#16140F',
+      border: i === 0 ? '#1F8A5B' : 'rgba(20,18,15,.14)'
+    }));
+
+    const stripe = (a, b) => `repeating-linear-gradient(135deg,${a},${a} 10px,${b},${b} 20px)`;
+    const ART = [
+      { rating: 4.5, cat: { sk: 'Reštaurácie', en: 'Restaurants' }, img: 'foto · ramen', bg: stripe('#EDEAE4', '#F6F3ED'),
+        title: { sk: 'Najlepší ramen v Bratislave', en: 'The best ramen in Bratislava' },
+        ex: { sk: 'Obišiel som šesť podnikov, aby som našiel misku, ku ktorej sa budem vracať. Tu je víťaz.', en: 'I tried six spots to find the one bowl I keep coming back to. Here is the winner.' },
+        meta: { sk: '8 min · Bratislava', en: '8 min · Bratislava' },
+        place: true, city: 'Bratislava', address: 'Obchodná 12, 811 06 Bratislava',
+        hours: { sk: 'Po–Ne 11:00–22:00', en: 'Mon–Sun 11:00–22:00' }, price: '€€',
+        body: {
+          sk: ['Ramen je pre mňa test každej kuchyne — vývar musí mať hĺbku, rezance ťah a topping rovnováhu. Túto misku som ochutnal šesťkrát, kým som si bol istý.', 'Tonkotsu vývar tu varia takmer 18 hodín a je to cítiť: hustý, hodvábny, bez zbytočnej mastnoty. Chashu bravčové sa rozpadá a marinované vajce má presne tekutý stred.', 'Za tú cenu je to jedna z mála misiek v meste, ku ktorej sa naozaj vraciam. Rezervácie neberú, tak príď skôr — po 19:00 tu býva rad.'],
+          en: ['Ramen is how I test any kitchen — the broth needs depth, the noodles bite, the toppings balance. I ate this bowl six times before I was sure.', 'They simmer the tonkotsu broth for nearly 18 hours and you can taste it: rich, silky, never greasy. The chashu falls apart and the marinated egg has a perfectly runny centre.', 'For the price it is one of the few bowls in town I keep coming back to. No reservations, so come early — after 7pm there is a queue.']
+        } },
+      { rating: 4, cat: { sk: 'Jedlá & recepty', en: 'Food & recipes' }, img: 'foto · pizza', bg: stripe('#EFE7DE', '#F7F1E9'),
+        title: { sk: 'Domáca pizza na liatinovej panvici', en: 'Homemade cast-iron pan pizza' },
+        ex: { sk: 'Bez pece, za 20 minút a s chrumkavým dnom. Postup, ktorý mi konečne vyšiel.', en: 'No oven, 20 minutes, crispy bottom. The method that finally worked for me.' },
+        meta: { sk: '6 min · recept', en: '6 min · recipe' },
+        place: false,
+        body: {
+          sk: ['Roky som sa bál domácej pizze, lebo mi vždy vyšlo mäkké, bledé cesto. Riešením nebola pec, ale liatinová panvica rozpálená na maximum.', 'Cesto necháš kysnúť aspoň 24 hodín v chladničke — získa chuť aj bublinky. Potom ho roztiahneš na panvicu, opečieš zospodu a dopečieš pod grilom v rúre.', 'Výsledok je chrumkavé, prepečené dno a nadýchaný okraj za dvadsať minút. Nižšie nájdeš presný pomer surovín aj časovanie.'],
+          en: ['For years I feared homemade pizza because the base always came out soft and pale. The fix was not an oven but a cast-iron pan heated to the max.', 'Let the dough rise at least 24 hours in the fridge — it gains flavour and bubbles. Then stretch it into the pan, crisp the bottom on the stove and finish under the grill.', 'The result is a crunchy, charred base and a fluffy edge in twenty minutes. Below you will find the exact ratios and timing.']
+        } },
+      { rating: 5, cat: { sk: 'Kaviarne', en: 'Cafés' }, img: 'foto · kaviareň', bg: stripe('#E7EEE9', '#F2F6F3'),
+        title: { sk: 'Špecializované kaviarne, ktoré stoja za to', en: 'Specialty cafés worth the trip' },
+        ex: { sk: 'Päť miest, kde to s kávou myslia vážne — a kde sa dobre pracuje aj sedí.', en: 'Five places that take coffee seriously — and where you can actually work and sit.' },
+        meta: { sk: '5 min · tipy', en: '5 min · guide' },
+        place: true, city: 'Bratislava', address: 'Panská 27, 811 01 Bratislava',
+        hours: { sk: 'Po–Pia 8:00–19:00, So–Ne 9:00–18:00', en: 'Mon–Fri 8:00–19:00, Sat–Sun 9:00–18:00' }, price: '€€',
+        body: {
+          sk: ['Dobrá kaviareň nie je len o káve, ale o tom, či sa v nej chce zostať. Toto miesto zvláda oboje — filter aj priestor na prácu.', 'Zrno rotujú každé dva týždne a baristi vedia, čo nalievajú. Skús ich filter na dennom výbere, chuťovo je to úplne inde než bežná espresso rutina.', 'Wi-Fi je rýchle, zásuviek dosť a hudba tak akurát. Cez víkend býva plno, cez týždeň dopoludnia máš pokoj.'],
+          en: ['A good café is not only about the coffee but whether you want to stay. This place nails both — the filter and the room to work.', 'They rotate beans every two weeks and the baristas know what they pour. Try their daily filter; it tastes worlds apart from the usual espresso routine.', 'The Wi-Fi is fast, there are enough sockets and the music sits just right. Weekends get busy; weekday mornings are calm.']
+        } },
+      { rating: 4.5, cat: { sk: 'Cestovanie', en: 'Travel' }, img: 'foto · Lisabon', bg: stripe('#EAE6EF', '#F3F0F7'),
+        title: { sk: 'Street food v Lisabone', en: 'Street food in Lisbon' },
+        ex: { sk: 'Čo jesť, kde to nájsť a koľko to stojí. Sprievodca po chutiach mesta na siedmich kopcoch.', en: 'What to eat, where to find it and what it costs. A taste guide to the city of seven hills.' },
+        meta: { sk: '11 min · Lisabon', en: '11 min · Lisbon' },
+        place: true, city: 'Lisabon', address: 'Time Out Market, Av. 24 de Julho 49, Lisboa',
+        hours: { sk: 'Denne 10:00–24:00', en: 'Daily 10:00–24:00' }, price: '€–€€',
+        body: {
+          sk: ['Lisabon sa je najlepšie po nohách a po častiach — malé porcie, veľa zastávok. Začni v Time Out Marte a odtiaľ sa prejedaj mestom.', 'Nevynechaj bifanu (bravčový sendvič), čerstvé pastéis de nata a grilované sardinky zo stánku. Ceny sú stále príjemné, ak sa vyhneš turistickým triedam.', 'Nachystaj si pohodlné topánky a chuť do kopcov. Najlepšie sústa som našiel v uličkách Alfamy, ďaleko od hlavného námestia.'],
+          en: ['Lisbon is best eaten on foot and in pieces — small portions, many stops. Start at the Time Out Market and eat your way across the city from there.', 'Do not skip the bifana (pork sandwich), fresh pastéis de nata and grilled sardines from a stall. Prices stay friendly if you avoid the tourist avenues.', 'Bring comfortable shoes and an appetite for hills. I found the best bites in the alleys of Alfama, far from the main square.']
+        } },
+      { rating: 4, cat: { sk: 'UI/UX', en: 'UI/UX' }, img: 'foto · UI', bg: stripe('#E6ECEF', '#F0F4F6'),
+        title: { sk: 'Ako navrhnúť rezervačný formulár, ktorý funguje', en: 'Designing a booking form that converts' },
+        ex: { sk: 'Menej polí, jasné kroky, rýchla odozva. Princípy UX, ktoré používam na každom projekte.', en: 'Fewer fields, clear steps, fast feedback. The UX principles I use on every project.' },
+        meta: { sk: '9 min · UX', en: '9 min · UX' },
+        place: false,
+        body: {
+          sk: ['Rezervačný formulár je miesto, kde podniky strácajú najviac zákazníkov. Každé pole navyše je ďalší dôvod odísť.', 'Skrátil som formulár na tri jasné kroky, pridal okamžitú spätnú väzbu a predvyplnil, čo sa dá. Konverzia stúpla, lebo človek presne vie, čo ho čaká.', 'V článku rozoberám konkrétne princípy — od poradia polí po mikrocopy tlačidiel — ktoré používam na každom projekte.'],
+          en: ['The booking form is where businesses lose the most customers. Every extra field is one more reason to leave.', 'I cut the form to three clear steps, added instant feedback and pre-filled whatever I could. Conversion rose because people know exactly what to expect.', 'In the article I break down the concrete principles — from field order to button microcopy — that I use on every project.']
+        } },
+      { rating: 5, cat: { sk: 'Dizajn & kód', en: 'Design & code' }, img: 'foto · web', bg: stripe('#E6ECEF', '#F0F4F6'),
+        title: { sk: 'Ako som postavil tento web', en: 'How I built this website' },
+        ex: { sk: 'Minimalizmus, 3D hover efekty a systém na monetizáciu blogu. Rozoberám rozhodnutia za dizajnom.', en: 'Minimalism, 3D hover effects and a system to monetize the blog. The decisions behind the design.' },
+        meta: { sk: '7 min · za oponou', en: '7 min · behind the scenes' },
+        place: false,
+        body: {
+          sk: ['Tento web má tri ciele: rýchlo sa načítať, dobre vyzerať a dať sa monetizovať bez otravných reklám.', 'Postavil som ho ako jednu sústavu komponentov s dôrazom na typografiu a priestor. 3D hover efekty nie sú ozdoba — vedú oko k obsahu.', 'Nižšie rozoberám rozhodnutia za dizajnom: prečo zelená, prečo serif na nadpisy a ako som poňal sekciu pre spolupráce.'],
+          en: ['This site has three goals: load fast, look good and be monetizable without annoying ads.', 'I built it as a single system of components with a focus on typography and space. The 3D hover effects are not decoration — they lead the eye to the content.', 'Below I unpack the decisions behind the design: why green, why a serif for headings and how I approached the collaboration section.']
+        } }
+    ];
+    const order = [5, 4, 0, 1, 2, 3];
+    const makeStars = (r) => Array.from({ length: 5 }, (_, i) => ({
+      color: r >= i + 1 ? '#E0A400' : (r >= i + 0.5 ? '#EDC96B' : 'rgba(20,18,15,.16)')
+    }));
+    const fmtRating = (r) => r.toFixed(1).replace('.', ',') + '/5';
+    const featured = order.map((idx) => ({ a: ART[idx], idx })).map(({ a, idx }) => ({
+      cat: a.cat[L], img: a.img, bg: a.bg, title: a.title[L], ex: a.ex[L], meta: a.meta[L],
+      stars: makeStars(a.rating), ratingLabel: fmtRating(a.rating),
+      open: () => this.openArticle(idx)
+    }));
+
+    const sel = this.state.selected;
+    const showDetail = sel != null;
+    let detail = null;
+    if (showDetail) {
+      const a = ART[sel];
+      const facts = [];
+      if (a.place) {
+        facts.push({ label: L === 'sk' ? 'Adresa' : 'Address', value: a.address });
+        facts.push({ label: L === 'sk' ? 'Otváracie hodiny' : 'Opening hours', value: a.hours[L] });
+        facts.push({ label: L === 'sk' ? 'Cenová úroveň' : 'Price', value: a.price });
+      } else {
+        facts.push({ label: L === 'sk' ? 'Kategória' : 'Category', value: a.cat[L] });
+        facts.push({ label: L === 'sk' ? 'Dĺžka čítania' : 'Read time', value: a.meta[L] });
+      }
+      facts.push({ label: L === 'sk' ? 'Hodnotenie' : 'Rating', value: fmtRating(a.rating) });
+      detail = {
+        place: !!a.place, cat: a.cat[L], title: a.title[L], ex: a.ex[L], meta: a.meta[L],
+        img: a.img, bg: a.bg, stars: makeStars(a.rating), ratingLabel: fmtRating(a.rating),
+        city: a.city || '', address: a.address || '', body: a.body[L], facts,
+        mapsUrl: a.address ? 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(a.address) : '#'
+      };
+    }
+
+    const COLLAB = [
+      { no: '01', title: { sk: 'Sponzorované články', en: 'Sponsored articles' },
+        text: { sk: 'Napíšem autentickú recenziu alebo príbeh o tvojom podniku pre publikum, ktoré rieši jedlo a zážitky.', en: 'I write an authentic review or story about your place for an audience that cares about food and experiences.' } },
+      { no: '02', title: { sk: 'Reklamné plochy', en: 'Ad placements' },
+        text: { sk: 'Natívne bannery a odporúčania priamo v článkoch a na domovskej stránke — bez rušivých reklám.', en: 'Native banners and recommendations right inside articles and on the homepage — no intrusive ads.' } },
+      { no: '03', title: { sk: 'Foto & video obsah', en: 'Photo & video content' },
+        text: { sk: 'Vytvorím vizuálny obsah o tvojom jedle a priestore, ktorý vieš použiť aj na vlastných kanáloch.', en: 'I create visual content about your food and space that you can also use across your own channels.' } }
+    ];
+    const collab = COLLAB.map((m) => ({ no: m.no, title: m.title[L], text: m.text[L] }));
+
+    return {
+      t, cats, featured, collab, roles: t.roles,
+      showDetail, detail, closeDetail: () => this.closeArticle(),
+      showCluster: this.props.showFloatingCards ?? true,
+      showCollab: this.props.showCollab ?? true,
+      setSk: () => this.setState({ lang: 'sk' }),
+      setEn: () => this.setState({ lang: 'en' }),
+      skBg: L === 'sk' ? active : idle, skColor: L === 'sk' ? activeC : idleC,
+      enBg: L === 'en' ? active : idle, enColor: L === 'en' ? activeC : idleC,
+      onContact: (e) => {
+        e.preventDefault();
+        const f = e.target.elements;
+        const subject = encodeURIComponent((L === 'sk' ? 'Spolupráca — ' : 'Collaboration — ') + (f.name.value || ''));
+        const body = encodeURIComponent(`${f.message.value}\n\n— ${f.name.value} (${f.email.value})`);
+        window.location.href = `mailto:ahoj@davidhabanek.sk?subject=${subject}&body=${body}`;
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
