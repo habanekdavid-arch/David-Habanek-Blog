@@ -20,6 +20,16 @@ function splitParagraphs(text: string): string[] {
     .filter(Boolean);
 }
 
+function slugify(raw: string): string {
+  return raw
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function parseImages(raw: FormDataEntryValue | null): string[] {
   if (typeof raw !== "string" || !raw.trim()) return [];
   try {
@@ -37,7 +47,7 @@ function parseForm(formData: FormData): ArticleInput {
   const featuredOrderRaw = String(formData.get("featuredOrder") ?? "").trim();
 
   return {
-    slug: String(formData.get("slug") ?? "").trim(),
+    slug: slugify(String(formData.get("slug") ?? "")),
     rating: Number(formData.get("rating") ?? 5),
     catSk: cat.sk,
     catEn: cat.en,
