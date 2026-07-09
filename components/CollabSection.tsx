@@ -1,22 +1,38 @@
 "use client";
 
+import { useState } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
 import { COLLAB, CONTACT_EMAIL } from "@/lib/content";
 import CollabCard from "./CollabCard";
 
+type ContactStatus = "idle" | "sending" | "success" | "error";
+
 export default function CollabSection() {
   const { lang, t } = useLanguage();
+  const [status, setStatus] = useState<ContactStatus>("idle");
 
-  function onContact(e: React.FormEvent<HTMLFormElement>) {
+  async function onContact(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const f = e.currentTarget.elements as typeof e.currentTarget.elements & {
+    const form = e.currentTarget;
+    const f = form.elements as typeof form.elements & {
       name: HTMLInputElement;
       email: HTMLInputElement;
       message: HTMLTextAreaElement;
     };
-    const subject = encodeURIComponent((lang === "sk" ? "Spolupráca — " : "Collaboration — ") + (f.name.value || ""));
-    const body = encodeURIComponent(`${f.message.value}\n\n— ${f.name.value} (${f.email.value})`);
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: f.name.value, email: f.email.value, message: f.message.value, lang }),
+      });
+      if (!res.ok) throw new Error("send failed");
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -109,9 +125,20 @@ export default function CollabSection() {
             placeholder={t.ctMsg}
             style={{ border: "none", borderRadius: 14, padding: "14px 18px", fontFamily: "inherit", fontSize: 15, outline: "none", resize: "vertical" }}
           />
-          <button type="submit" className="pill-btn dark-strong" style={{ padding: "14px 24px", fontSize: 15, alignSelf: "flex-start" }}>
-            {t.ctBtn}
+          <button
+            type="submit"
+            className="pill-btn dark-strong"
+            disabled={status === "sending"}
+            style={{ padding: "14px 24px", fontSize: 15, alignSelf: "flex-start", opacity: status === "sending" ? 0.7 : 1, cursor: status === "sending" ? "default" : "pointer" }}
+          >
+            {status === "sending" ? t.ctSending : t.ctBtn}
           </button>
+          {status === "success" && (
+            <p style={{ fontSize: 14, color: "#fff", margin: 0 }}>{t.ctSuccess}</p>
+          )}
+          {status === "error" && (
+            <p style={{ fontSize: 14, color: "#fff", margin: 0 }}>{t.ctError}</p>
+          )}
         </form>
       </div>
     </section>

@@ -82,6 +82,9 @@ export interface Dict {
   ctEmail: string;
   ctMsg: string;
   ctBtn: string;
+  ctSending: string;
+  ctSuccess: string;
+  ctError: string;
   backToBlog: string;
   infoTitle: string;
   locationTitle: string;
@@ -141,6 +144,9 @@ export const DICT: Record<Lang, Dict> = {
     ctEmail: "Email",
     ctMsg: "O čo ide?",
     ctBtn: "Odoslať správu",
+    ctSending: "Odosielam...",
+    ctSuccess: "Ďakujem! Správa odoslaná, ozvem sa čo najskôr.",
+    ctError: "Niečo sa pokazilo. Skús to znova alebo napíš priamo na email.",
     backToBlog: "Späť na blog",
     infoTitle: "Informácie",
     locationTitle: "Kde to nájdeš",
@@ -197,6 +203,9 @@ export const DICT: Record<Lang, Dict> = {
     ctEmail: "Email",
     ctMsg: "What's it about?",
     ctBtn: "Send message",
+    ctSending: "Sending...",
+    ctSuccess: "Thanks! Your message is on its way, I'll get back to you soon.",
+    ctError: "Something went wrong. Please try again or email me directly.",
     backToBlog: "Back to blog",
     infoTitle: "Details",
     locationTitle: "Where to find it",
