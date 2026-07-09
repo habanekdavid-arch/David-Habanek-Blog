@@ -6,6 +6,7 @@ import About from "@/components/About";
 import CollabSection from "@/components/CollabSection";
 import Footer from "@/components/Footer";
 import { listFeaturedArticles } from "@/lib/db/articles";
+import { CategoryFilterProvider } from "@/lib/CategoryFilterContext";
 
 export const dynamic = "force-dynamic";
 
@@ -16,8 +17,10 @@ export default async function Home() {
     <div style={{ maxWidth: "100%", overflowX: "hidden" }}>
       <Header />
       <Hero />
-      <TopicsBar />
-      <ArticleGrid articles={articles} />
+      <CategoryFilterProvider>
+        <TopicsBar />
+        <ArticleGrid articles={articles} />
+      </CategoryFilterProvider>
       <About />
       <CollabSection />
       <Footer />

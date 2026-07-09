@@ -1,11 +1,14 @@
 "use client";
 
 import { useLanguage } from "@/lib/LanguageContext";
+import { useCategoryFilter } from "@/lib/CategoryFilterContext";
 import { Article } from "@/lib/content";
 import ArticleCard from "./ArticleCard";
 
 export default function ArticleGrid({ articles }: { articles: Article[] }) {
   const { lang, t } = useLanguage();
+  const { selected } = useCategoryFilter();
+  const visibleArticles = selected.length === 0 ? articles : articles.filter((a) => selected.includes(a.cat.sk));
 
   return (
     <section id="latest" style={{ maxWidth: 1180, margin: "0 auto", padding: "40px 28px 20px" }}>
@@ -30,11 +33,11 @@ export default function ArticleGrid({ articles }: { articles: Article[] }) {
         </a>
       </div>
 
-      {articles.length === 0 ? (
+      {visibleArticles.length === 0 ? (
         <p style={{ fontSize: 15, color: "#9B958A" }}>{t.noArticles}</p>
       ) : (
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(322px,1fr))", gap: 26 }}>
-          {articles.map((a) => (
+          {visibleArticles.map((a) => (
             <ArticleCard key={a.slug} article={a} lang={lang} readLabel={t.read} />
           ))}
         </div>
