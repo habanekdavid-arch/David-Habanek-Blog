@@ -19,9 +19,12 @@ CREATE TABLE IF NOT EXISTS articles (
   price TEXT,
   body_sk JSONB NOT NULL DEFAULT '[]',
   body_en JSONB NOT NULL DEFAULT '[]',
+  images JSONB NOT NULL DEFAULT '[]',
   featured_order INTEGER,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+ALTER TABLE articles ADD COLUMN IF NOT EXISTS images JSONB NOT NULL DEFAULT '[]';
 
 CREATE INDEX IF NOT EXISTS articles_featured_order_idx ON articles (featured_order);

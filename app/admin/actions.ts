@@ -20,6 +20,16 @@ function splitParagraphs(text: string): string[] {
     .filter(Boolean);
 }
 
+function parseImages(raw: FormDataEntryValue | null): string[] {
+  if (typeof raw !== "string" || !raw.trim()) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter((u): u is string => typeof u === "string" && u.trim() !== "") : [];
+  } catch {
+    return [];
+  }
+}
+
 function parseForm(formData: FormData): ArticleInput {
   const catIndex = Number(formData.get("categoryIndex") ?? 0);
   const cat = ALL_CATEGORIES[catIndex] ?? ALL_CATEGORIES[0];
@@ -32,6 +42,7 @@ function parseForm(formData: FormData): ArticleInput {
     catSk: cat.sk,
     catEn: cat.en,
     imageUrl: String(formData.get("imageUrl") ?? "").trim() || null,
+    images: parseImages(formData.get("images")),
     titleSk: String(formData.get("titleSk") ?? "").trim(),
     titleEn: String(formData.get("titleEn") ?? "").trim(),
     excerptSk: String(formData.get("excerptSk") ?? "").trim(),

@@ -31,30 +31,36 @@ export default async function AdminArticlesPage() {
       ) : (
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {articles.map((a) => (
-            <Link
+            <div
               key={a.id}
-              href={`/admin/${a.id}`}
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
                 gap: 16,
-                textDecoration: "none",
-                color: "inherit",
                 background: "#fff",
                 border: "1px solid rgba(20,18,15,.1)",
                 borderRadius: 12,
                 padding: "14px 18px",
               }}
             >
-              <div>
+              <Link href={`/admin/${a.id}`} style={{ textDecoration: "none", color: "inherit", flex: 1, minWidth: 0 }}>
                 <div style={{ fontWeight: 600 }}>{a.titleSk}</div>
                 <div style={{ fontSize: 13, color: "#6E6960", marginTop: 2 }}>
                   {a.catSk} · /blog/{a.slug} {a.place ? "· miesto" : ""}
                 </div>
+              </Link>
+              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                <Link
+                  href={`/blog/${a.slug}`}
+                  target="_blank"
+                  style={{ fontSize: 13, fontWeight: 600, color: "#1F8A5B", textDecoration: "none", whiteSpace: "nowrap" }}
+                >
+                  Zobraziť ↗
+                </Link>
+                <span style={{ fontSize: 13, color: "#9B958A" }}>{a.featuredOrder !== null ? `#${a.featuredOrder}` : "—"}</span>
               </div>
-              <div style={{ fontSize: 13, color: "#9B958A" }}>{a.featuredOrder !== null ? `#${a.featuredOrder}` : "—"}</div>
-            </Link>
+            </div>
           ))}
         </div>
       )}

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ALL_CATEGORIES } from "@/lib/content";
 import { ArticleInput } from "@/lib/db/articles";
 import ImageUploadField from "./ImageUploadField";
+import MultiImageUploadField from "./MultiImageUploadField";
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
@@ -70,8 +71,12 @@ export default function ArticleForm({
         </Field>
       </div>
 
-      <Field label="Fotka">
+      <Field label="Titulná fotka">
         <ImageUploadField name="imageUrl" defaultValue={initial?.imageUrl ?? undefined} />
+      </Field>
+
+      <Field label="Ďalšie fotky v článku">
+        <MultiImageUploadField name="images" defaultValue={initial?.images ?? []} />
       </Field>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>

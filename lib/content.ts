@@ -14,6 +14,7 @@ export interface Article {
   img: string;
   bg: string;
   imageUrl?: string;
+  images?: string[];
   title: LocalizedString;
   excerpt: LocalizedString;
   meta: LocalizedString;

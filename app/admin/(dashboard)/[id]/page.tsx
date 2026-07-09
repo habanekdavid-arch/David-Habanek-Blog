@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import ArticleForm from "@/components/admin/ArticleForm";
 import { getArticleForAdmin } from "@/lib/db/articles";
 import { updateArticleAction, deleteArticleAction } from "@/app/admin/actions";
@@ -12,7 +13,12 @@ export default async function EditArticlePage({ params }: { params: Promise<{ id
 
   return (
     <div>
-      <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 24 }}>Upraviť článok</h1>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
+        <h1 style={{ fontSize: 24, fontWeight: 700, margin: 0 }}>Upraviť článok</h1>
+        <Link href={`/blog/${article.slug}`} target="_blank" style={{ fontSize: 14, fontWeight: 600, color: "#1F8A5B", textDecoration: "none" }}>
+          Zobraziť na blogu ↗
+        </Link>
+      </div>
       <ArticleForm
         initial={article}
         action={updateArticleAction.bind(null, article.id)}

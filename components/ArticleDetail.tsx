@@ -112,6 +112,16 @@ export default function ArticleDetail({ article: a }: { article: Article }) {
                 {p}
               </p>
             ))}
+
+            {a.images && a.images.length > 0 && (
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(200px,1fr))", gap: 12, marginTop: 8 }}>
+                {a.images.map((src, i) => (
+                  <div key={src + i} style={{ position: "relative", height: 200, borderRadius: 14, overflow: "hidden", border: "1px solid rgba(20,18,15,.06)" }}>
+                    <Image src={src} alt={`${a.title[lang]} ${i + 1}`} fill sizes="(max-width: 640px) 100vw, 300px" style={{ objectFit: "cover" }} />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           <aside style={{ flex: "1 1 230px", maxWidth: 300, position: "sticky", top: 88 }}>
             <div style={{ background: "#fff", border: "1px solid rgba(20,18,15,.08)", borderRadius: 18, padding: 22, boxShadow: "0 12px 30px -22px rgba(20,18,15,.2)" }}>

@@ -22,6 +22,7 @@ interface ArticleRow {
   price: string | null;
   body_sk: string[];
   body_en: string[];
+  images: string[];
   featured_order: number | null;
   created_at: string;
 }
@@ -32,6 +33,7 @@ export interface ArticleInput {
   catSk: string;
   catEn: string;
   imageUrl?: string | null;
+  images?: string[];
   titleSk: string;
   titleEn: string;
   excerptSk: string;
@@ -68,6 +70,7 @@ function rowToArticle(row: ArticleRow): Article {
     img: row.image_url ? "" : `foto · ${row.slug}`,
     bg: stripeForSeed(row.slug),
     imageUrl: row.image_url ?? undefined,
+    images: row.images ?? [],
     title: { sk: row.title_sk, en: row.title_en },
     excerpt: { sk: row.excerpt_sk, en: row.excerpt_en },
     meta: { sk: row.meta_sk, en: row.meta_en },
@@ -119,6 +122,7 @@ export async function getArticleForAdmin(id: number): Promise<(ArticleInput & { 
     catSk: row.cat_sk,
     catEn: row.cat_en,
     imageUrl: row.image_url,
+    images: row.images ?? [],
     titleSk: row.title_sk,
     titleEn: row.title_en,
     excerptSk: row.excerpt_sk,
@@ -141,8 +145,8 @@ export async function createArticle(input: ArticleInput): Promise<number> {
   const { rows } = await getPool().query<{ id: number }>(
     `INSERT INTO articles
       (slug, rating, cat_sk, cat_en, image_url, title_sk, title_en, excerpt_sk, excerpt_en,
-       meta_sk, meta_en, place, city, address, hours_sk, hours_en, price, body_sk, body_en, featured_order)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)
+       meta_sk, meta_en, place, city, address, hours_sk, hours_en, price, body_sk, body_en, images, featured_order)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)
      RETURNING id`,
     [
       input.slug,
@@ -164,6 +168,7 @@ export async function createArticle(input: ArticleInput): Promise<number> {
       input.price ?? null,
       JSON.stringify(input.bodySk),
       JSON.stringify(input.bodyEn),
+      JSON.stringify(input.images ?? []),
       input.featuredOrder ?? null,
     ]
   );
@@ -177,8 +182,8 @@ export async function updateArticle(id: number, input: ArticleInput): Promise<vo
        title_sk = $6, title_en = $7, excerpt_sk = $8, excerpt_en = $9,
        meta_sk = $10, meta_en = $11, place = $12, city = $13, address = $14,
        hours_sk = $15, hours_en = $16, price = $17, body_sk = $18, body_en = $19,
-       featured_order = $20, updated_at = now()
-     WHERE id = $21`,
+       images = $20, featured_order = $21, updated_at = now()
+     WHERE id = $22`,
     [
       input.slug,
       input.rating,
@@ -199,6 +204,7 @@ export async function updateArticle(id: number, input: ArticleInput): Promise<vo
       input.price ?? null,
       JSON.stringify(input.bodySk),
       JSON.stringify(input.bodyEn),
+      JSON.stringify(input.images ?? []),
       input.featuredOrder ?? null,
       id,
     ]
