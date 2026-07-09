@@ -20,9 +20,11 @@ export default function TopicsBar() {
               onClick={() => toggle(c.sk)}
               aria-pressed={active}
               style={{
+                fontFamily: "inherit",
                 fontSize: 13.5,
                 fontWeight: 600,
                 padding: "9px 16px",
+                margin: 0,
                 borderRadius: 999,
                 border: `1px solid ${active ? "#1F8A5B" : "rgba(20,18,15,.14)"}`,
                 background: active ? "#1F8A5B" : "#fff",
